@@ -15,7 +15,7 @@ export class User extends Model {
   @Column({ unique: true })
   username!: string;
 
-  @Column()
+  @Column
   password!: string;
 
   @Column({ type: DataType.ENUM(...Object.values(Role)), defaultValue: Role.PLAYER })
