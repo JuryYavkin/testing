@@ -31,12 +31,17 @@ export class RoundService {
     if (!round) throw new NotFoundException();
     const userScore = await this.scoreModel.findOne({ where: { roundId: id, userId } });
     const winner = round.scores.sort((a, b) => b.points - a.points)[0];
+    let winnerInfo = null;
+    if (winner) {
+      const winnerUser = await winner.$get('user');
+      winnerInfo = winnerUser ? { username: winnerUser.username, points: winner.points } : null;
+    }
     return {
       id: round.id,
       start: round.start,
       end: round.end,
       totalScore: round.totalScore,
-      winner: winner ? { username: (await winner.$get('user')).username, points: winner.points } : null,
+      winner: winnerInfo,
       myPoints: userScore?.points || 0,
     };
   }
