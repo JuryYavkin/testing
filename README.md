@@ -16,3 +16,14 @@ This repository contains a minimal setup for the game backend and frontend.
 docker-compose up --build
 ```
 The backend will be available on `/api` and the frontend on port 80.
+
+## Development with hot reload
+
+Run the dev environment with:
+
+```
+docker-compose -f docker-compose.dev.yml up
+```
+
+The backend listens on port 3000 and reloads on changes. The Vite dev server is
+available on port 5173. An Nginx proxy still exposes everything on port 80.
